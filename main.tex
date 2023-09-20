@@ -1,0 +1,197 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{longtable}
+\usepackage{enumitem}[shortlabels]					% Para personalizar listas
+\usepackage{dirtytalk}
+
+\usepackage[spanish, mexico]{babel}
+    \decimalpoint
+\usepackage[colorlinks,linkcolor=black,urlcolor=black,citecolor=black, breaklinks=true]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{patterns}
+\usetikzlibrary{shapes}
+\usetikzlibrary{positioning}
+\usetikzlibrary{automata}
+\usetikzlibrary{cd}
+\usepackage{tikz-3dplot}
+\usepackage{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[intlimits]{amsmath}
+\usepackage{fullpage}
+% \usepackage[osf,sc]{mathpazo} % Uncomment for Palatino and comment out the next line
+\usepackage[frenchstyle,widermath,narrowiints,fullsumlimits,fullintlimits]{kpfonts} % Comment out and uncomment the previous line for Palatino
+\linespread{1.05}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amsxtra}
+\usepackage{amssymb}
+\usepackage{mathdots}
+\usepackage{mathrsfs}
+\usepackage{microtype}
+\usepackage{stmaryrd}
+\usepackage{titlesec}
+\usepackage{systeme}
+\usepackage[titles]{tocloft}
+\usepackage{textcase}
+\usepackage{setspace}
+\usepackage{xfrac}
+\usepackage{mathtools}
+\usepackage{faktor}
+\usepackage{cancel}
+\usepackage{mparhack}
+\usepackage{booktabs}
+\usepackage{multirow}
+%\usepackage[fixlanguage]{babelbib}
+\usepackage{tikz}
+\usepackage{csquotes}
+\usepackage{forest}
+\usepackage{xparse}
+\usepackage{ytableau} %Diagramas de Young
+\usepackage[
+            hyperref=true, % También puede ser auto
+            style=nature
+            ]{biblatex}
+\addbibresource{biblio.bib}
+\usepackage{nicematrix}
+\usepackage{macros_math}
+\NiceMatrixOptions{cell-space-limits = 2pt}
+% paquetes para obtener el 1 bomnito
+\usepackage[bb=dsserif]{mathalpha}
+\usepackage{bm}
+\newcommand\Bbbbone{%
+  \ifdefined\mathbbb%
+    \mathbbb{1}%
+  \else%
+    \boldsymbol{\mathbb{1}}%
+  \fi}
+
+\pgfdeclarelayer{bg}
+\pgfsetlayers{bg,main}
+
+\tikzset{
+  wrap/.style={
+    line cap=round,
+    #1,
+    line width=21pt,
+    opacity=0.3,
+  },
+  mynode/.style={
+    draw,
+    circle,
+    yshift=-0.5cm,
+    outer sep=0.3cm
+  },
+  group/.style={
+    draw,
+    ellipse,
+    minimum width=3cm,
+    minimum height=6cm
+  },
+}
+
+
+\usepackage[spanish]{cleveref} 
+
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\title{Tarea 3 --- Procesos Estocásticos}
+\author{
+Pavón Alvarez, Lenin
+%\and 
+}
+\date{Otoño 2023}
+%
+\allowdisplaybreaks
+\begin{document}
+\maketitle
+\section{Problema 1}
+\begin{displayquote}
+    Vuelve a resolver la primera parte del examen parcial 1
+\end{displayquote}
+\subsection{Reactivo 1}
+\begin{displayquote}
+    Sea $(\Omega, \mathcal{F}, \p)$ un espacio de probabilidad. Definido en dicho espacio, sea $X=\cdm[n][0]{X_n}$ una cadena de Marjov con espacio de estados $E$.
+    \begin{enumerate}
+        \item Escribe (formalmente) la propiedad de Markov para $\cdm[n][0]{X_n}$
+        \item Explica intuitivamente el significado de la propiedad de Markov
+    \end{enumerate}
+\end{displayquote}
+\subsection{Reactivo 2}
+\begin{displayquote}
+    Demuestra que todo estado absorbente es recurrente.
+\end{displayquote}
+\subsection{Reactivo 3}
+\begin{displayquote}
+    Considera la cadena de Markov con espacio de estados $\{1,2,3,4,5\}$ y matriz de transición
+    \[\begin{pNiceMatrix}
+        0&0&0&\frac{1}{2}&\frac{1}{2}\\
+        \frac{1}{2}&0&\frac{1}{8}&\frac{1}{4}&\frac{1}{8}\\
+        0&0&1&0&0\\
+        0&0&0&\frac{1}{2}&\frac{1}{2}\\
+        0&0&0&\frac{1}{3}&\frac{2}{3}
+    \end{pNiceMatrix}\]
+\end{displayquote}
+\begin{enumerate}
+    \item Dibuja su diagrama de comunicación
+    \item Encuentra las clases de comunicación
+    \item Lista las clases de comunicación cerradas
+    \item Determina estados absorbentes (si existen).
+    \item Para cada estado, determina si es recurrente o transitorio. \textit{Justifica tu respuesta}
+    \item Calcula $\p(X_2=4|X_0=1)$
+\end{enumerate}
+\subsection{Reactivo 4}
+\begin{displayquote}
+    Sea $X=X=\cdm[n][0]{X_n}$ una cadena de Marjov con espacio de estados $E$ y probabilidades de transición $(P_{x,y})_{x,y\in E}$. Sea $y\in E$ y consideremos como distribución inicial $\delta_y$ (es decir, $X_0=y$) con probabilidad $1$
+    \par Supongamos que $y$ es un estado transitorio y consideremos la variable aleatoria
+    \[V_y=\sum_{n=0}^\infty\uno(X_n=y)\]
+    que corresponde al \textit{número de visitas} al estado $y$. Determian la distribución de $V_y$, indicando el nombre de la distribución y su parámetro.
+\end{displayquote}
+\section{Problema 2}
+\begin{displayquote}
+    Una pulga amaestrada brinca aleatoriamente en los vértices de un triángulo, todos sus saltos tienen la misma probabilidad (se supone que en cada etapa cambia de lugar).
+    \begin{enumerate}
+        \item Calcula la probabilidad de que después de $n$ saltos la pulga regrese a su punto de partida
+        \item Suponga que otra pulga brinca en los vértices de un triángulo, pero que esta brinca el doble de veces a su derecha que a su izquierda. ¿Cuál es la probabilidad de que después de $n$ saltos la pulga regrese a su punto de partida?
+    \end{enumerate}
+\end{displayquote}
+\section{Problema 3}
+\begin{displayquote}
+    Supongamos que la prbabilidad de que llueva hoy es de $0.3$ si ninguno de los últimos dos días fue lluvioso, pero la probabilidad de que llueva hoy es $0.6$ si al menos uno de los últimos dos días fue lluvioso.
+    \par Indicamos con $W_n$ el clima del $n-$ésimo día y denotamos
+    \[W_n=\begin{cases}
+        R& \text{si en el $n$-ésimo día llovió,}\\
+        S& \text{si el clima del $n$-ésimo día fue soleado}
+    \end{cases}\]
+    \begin{enumerate}
+        \item Muestra que $W=\cdm{W_n}$ no es una cadena de Markow
+        \item Considera el proceso estocástico $X=\cdm{X_n}$ definido por
+        \[X_n= (W_{n-1},W_n),\qquad n\geqslant 1\]
+        Demuestra que $X$ es una cadena de Markov con espacio de estados 
+        \[\{(R,R),(R,S),(S,R),(S,S)\}\]
+        \item Calcula la matriz de transición de $X$
+        \item Calcula las pribabilidades de transición a dos pasos de $X$
+        \item ¿Cuál es la probabilidad de que sí llueva un miércoles dado que no llovió el domineog ni el lunes?
+    \end{enumerate}
+\end{displayquote}
+\section{Problema 4}
+Seis niños (Dick, Helen, Joni, Mark,
+Sam y Tony) juegan a atrapar la pelota y sucede lo siguiente:
+\begin{itemize}
+    \item Si Dick tiene la pelota, es igualmente probable que se la lance a Helen, Mark, Sam y Tony.
+    \item Si Helen tiene la pelota, es igualmente probable que se la lance a Dick, Joni, Sam y Tony.
+    \item Si Sam tiene la pelota, es igualmente probable que se la lance a Dick, Helen, Mark y Tony.
+    \item Si Joni o Tony reciben la pelota, siguen lanzándosela el uno al otro.
+    \item Si Mark recibe el balón, se escapa con él.
+\end{itemize}
+\begin{enumerate}
+    \item Encuentra la matriz de transición de la cadena de Markov que modela este juego
+    \item Determina las clases de comunicación de la cadena de Markov y determina cuáles clases son cerradas
+    \item Para cada estado, determina si es transtiorio o recurrente
+    \item Para cada estado, determina si es absorbente
+    \item Supongamos que Dick tiene la pelota al comienzo del juego. ¿Cuáles la probabilidad de que Mark termine con la pelota?
+\end{enumerate}
+
+
+\end{document}
