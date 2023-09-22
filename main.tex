@@ -141,9 +141,110 @@ Pavón Alvarez, Lenin
     \item Para cada estado, determina si es recurrente o transitorio. \textit{Justifica tu respuesta}
     \item Calcula $\p(X_2=4|X_0=1)$
 \end{enumerate}
+\paragraph{a)} El diagrama de comunicación
+
+\begin{figure}[!hbt]
+\centering
+\begin{tikzpicture}[->, >=stealth,shorten >=2pt, line width=0.5pt, node distance=2cm]
+% Nodos
+\node [circle , draw , text opacity=1, text=black] (A)  at  (90:5cm) {$1$};
+\node [circle, fill=gray!10,text opacity=1, text=black] (B)  at (162:5cm) {$2$};
+\node [circle, fill=gray!30 , draw, opacity=0.5 ,dotted, text opacity=1, text=black] (C)  at (234:5cm) {$3$};
+\node [circle , fill=gray!60 , draw , dashed , text opacity=1, text=black] (D)  at (306:5cm) {$4$};
+\node [circle , fill=gray!60 , draw , dashed , text opacity=1, text=black] (E)  at  (18:5cm) {$5$};
+% Ejes
+% ---
+% A
+% ---
+%\path (A) edge [loop above] node [above] {$0.4$} (A);
+
+%\path (A) edge [bend left] node [fill=white, anchor=center, pos=0.3] {$0.3$} (B);
+
+%\path (A) edge [bend left] node [fill=white, anchor=center, pos=0.7] {$0.3$} (C);
+
+\path (A) edge [bend left] node [fill=white, anchor=center, pos = 0.15] {$\frac{1}{2}$} (D);
+
+\path (A) edge [bend left] node [above right] {$\frac{1}{2}$} (E);
+
+% ---
+% B
+% ---
+\path (B) edge [bend left] node [fill=white, anchor=center, pos = 0.25] {$\frac{1}{2}$} (A);
+
+%\path (B) edge [in=132, out=162, loop] node [above] {$0.5$} (B);
+
+\path (B) edge [bend left] node [right] {$\frac{1}{8}$} (C);
+
+\path (B) edge [bend left] node [fill=white, anchor=center, pos=0.5] {$\frac{1}{4}$} (D);
+
+\path (B) edge [bend left] node [fill=white, anchor=center, pos = 0.25] {$\frac{1}{8}$} (E);
+% ---
+% C
+% ---
+%\path (C) edge [bend left] node [fill=white, anchor=center, pos=0.15] {$0.5$} (A);
+
+%\path (C) edge [bend left] node [right] {$0.3$} (B);
+
+\path (C) edge [in=204, out=234, loop] node [below] {$1$} (C);
+
+%\path (C) edge [bend left] node [right] {$0.0$} (D);
+
+%\path (C) edge [bend left] node [above right] {$0.0$} (E);
+% ---
+% D
+% ---
+%\path (D) edge [bend left] node [below] {$0.3$} (A);
+
+%\path (D) edge [bend left] node [fill=white, anchor=center, pos=0.25] {$0.5$} (B);
+
+%\path (D) edge [bend left] node [right] {$0.0$} (C);
+
+\path (D) edge [in=276, out=306, loop] node [below] {$\frac{1}{2}$} (D);
+
+\path (D) edge [bend left] node [fill=white, anchor=center, pos=0.25] {$\frac{1}{2}$} (E);
+% ---
+% E
+% ---
+%\path (E) edge [bend left] node [below] {$0.3$} (A);
+
+%\path (E) edge [bend left] node [fill=white, anchor=center, pos=0.25] {$0.3$} (B);
+
+%\path (E) edge [bend left] node [right] {$0.0$} (C);
+
+\path (E) edge [bend left] node [fill=white, anchor=center, pos=0.25] {$\frac{1}{3}$} (D);
+
+\path (E) edge [in=348, out=18, loop] node [right] {$\frac{2}{3}$} (E);
+\end{tikzpicture} 
+\caption{Diagrama de comunicación del reactivo 3} 
+\label{fig:p1r3}
+\end{figure}
+\paragraph{b)} Las clases de comunicación son 
+\[\{\{1\},\{2\},\{3\},\{4,5\}\}\]
+\paragraph{c)} Veamos que como $2\to 1$, $1\to 5$; $\{1\},\{2\}$ no son clases cerradas. En cambio como $3$ es absorbente, y $4\not\to 1,2,3$ ni $5\to 1,2,3$; las clases de comunicación cerradas son
+\[\{3\},\{4,5\}\]
+\paragraph{d)} Sólo hay un estado absorbente que es $3$ pues $P(3,3)=1$.
+\paragraph{e)} Como la transitoreidad y la absorbencia son propiedades de clase, recordemos que $\{3\},\{4,5\}$ son clases de comunicación cerradas con cantidad de estados finitos y por tanto sus estados son recurrentes. En cambio, las clases restantes no son cerradas y por tanto transitorias. Así los estados \textit{transitorios} son:
+\[1,2\]
+y los estados \textit{recurrentes} son
+\[3,4,5\]
+\paragraph{f)} Por Chapman-Kolmogorov, tenemos que
+\begin{align*}
+    \p(X_2=4|X_0=1)=&\sum_{z\in E}\p(X_2=4|X_1=z)\p(X_1=z|X_0=1)\\
+    =&\p(X_2=4|X_1=1)\cancelto{0}{\p(X_1=1|X_0=1)}\\
+    &+\p(X_2=4|X_1=2)\cancelto{0}{\p(X_1=2|X_0=1)}\\
+    &+\cancelto{0}{\p(X_2=4|X_1=3)}\cancelto{0}{\p(X_1=3|X_0=1)}\\
+    &+\p(X_2=4|X_1=4)\p(X_1=4|X_0=1)\\
+    &+\p(X_2=4|X_1=5)\p(X_1=5|X_0=1)\\
+    =&\p(X_2=4|X_1=4)\p(X_1=4|X_0=1)\\
+    &+\p(X_2=4|X_1=5)\p(X_1=5|X_0=1)\\
+    =&\left(\frac{1}{2}\right)\left(\frac{1}{2}\right)
+    +\left(\frac{1}{3}\right)\left(\frac{1}{2}\right)\\
+    =&\frac{1}{4}+\frac{1}{6}\\
+    =&\frac{5}{12}
+\end{align*}
 \subsection{Reactivo 4}
 \begin{displayquote}
-    Sea $X=X=\cdm[n][0]{X_n}$ una cadena de Marjov con espacio de estados $E$ y probabilidades de transición $(P_{x,y})_{x,y\in E}$. Sea $y\in E$ y consideremos como distribución inicial $\delta_y$ (es decir, $X_0=y$) con probabilidad $1$
+    Sea $X=X=\cdm[n][0]{X_n}$ una cadena de Markov con espacio de estados $E$ y probabilidades de transición $(P_{x,y})_{x,y\in E}$. Sea $y\in E$ y consideremos como distribución inicial $\delta_y$ (es decir, $X_0=y$) con probabilidad $1$
     \par Supongamos que $y$ es un estado transitorio y consideremos la variable aleatoria
     \[V_y=\sum_{n=0}^\infty\uno(X_n=y)\]
     que corresponde al \textit{número de visitas} al estado $y$. Determian la distribución de $V_y$, indicando el nombre de la distribución y su parámetro.
@@ -156,9 +257,159 @@ Pavón Alvarez, Lenin
         \item Suponga que otra pulga brinca en los vértices de un triángulo, pero que esta brinca el doble de veces a su derecha que a su izquierda. ¿Cuál es la probabilidad de que después de $n$ saltos la pulga regrese a su punto de partida?
     \end{enumerate}
 \end{displayquote}
+\paragraph{a)} Notemos que como en cada etapa cambia de lugar $P(x,x)=0$, de ahí como cada salto tiene la misma probabilidad, así la matriz de transición es
+    \[P=\begin{pNiceMatrix}
+        0&\frac{1}{2}&\frac{1}{2}\\
+        \frac{1}{2}&0&\frac{1}{2}\\
+        \frac{1}{2}&\frac{1}{2}&0
+    \end{pNiceMatrix}\]
+
+\begin{figure}[!hbt]
+\centering
+\begin{tikzpicture}[->, >=stealth,shorten >=2pt, line width=0.5pt, node distance=2cm]
+% Nodos
+\node [circle , draw , text opacity=1, text=black] (A)  at  (90:5cm) {$1$};
+\node [circle, fill=gray!10,text opacity=1, text=black] (B)  at (210:5cm) {$2$};
+\node [circle, fill=gray!30 , draw, opacity=0.5 ,dotted, text opacity=1, text=black] (C)  at (330:5cm) {$3$};
+% Ejes
+% ---
+% A
+% ---
+%\path (A) edge [loop above] node [above] {$0.4$} (A);
+
+\path (A) edge node [fill=white, anchor=center, pos=0.25] {$\frac{1}{2}$} (B);
+
+\path (A) edge [bend left] node [fill=white, anchor=center, pos=0.25] {$\frac{1}{2}$} (C);
+
+
+% ---
+% B
+% ---
+\path (B) edge [bend left] node [fill=white, anchor=center, pos = 0.25] {$\frac{1}{2}$} (A);
+
+%\path (B) edge [in=132, out=162, loop] node [above] {$0.5$} (B);
+
+\path (B) edge node [fill=white, anchor=center, pos = 0.25] {$\frac{1}{2}$} (C);
+
+% ---
+% C
+% ---
+\path (C) edge node [fill=white, anchor=center, pos=0.25] {$\frac{1}{2}$} (A);
+
+\path (C) edge [bend left] node [fill=white, anchor=center, pos=0.25] {$\frac{1}{2}$} (B);
+
+%\path (C) edge [in=204, out=234, loop] node [below] {$1$} (C);
+
+\end{tikzpicture} 
+\caption{Diagrama de comunicación del problema 2a} 
+\label{fig:p2a}
+\end{figure}
+Consideremos al diagrama de comunicación (\cref{fig:p2a}). Notemos que la matriz de transición es simétrica, por teorema espectral podemos diagonalizar la matriz. En particular,
+\[
+P=
+\begin{pNiceMatrix}
+        -1 & -1 & 1\\1 & 0 & 1\\0 & 1 & 1
+\end{pNiceMatrix}
+\begin{pNiceMatrix}
+    -\frac{1}{2} & 0 & 0\\0 & -\frac{1}{2} & 0\\0 & 0 & 1
+\end{pNiceMatrix}
+\begin{pNiceMatrix}
+    - \frac{1}{3} & \frac{2}{3} & - \frac{1}{3}\\- \frac{1}{3} & - \frac{1}{3} & \frac{2}{3}\\\frac{1}{3} & \frac{1}{3} & \frac{1}{3}
+\end{pNiceMatrix}
+\]
+Entonces 
+\[P^n=\begin{pNiceMatrix}
+        -1 & -1 & 1\\1 & 0 & 1\\0 & 1 & 1
+\end{pNiceMatrix}
+\begin{pNiceMatrix}
+    -\frac{1}{2} & 0 & 0\\0 & -\frac{1}{2} & 0\\0 & 0 & 1
+\end{pNiceMatrix}^n
+\begin{pNiceMatrix}
+    - \frac{1}{3} & \frac{2}{3} & - \frac{1}{3}\\- \frac{1}{3} & - \frac{1}{3} & \frac{2}{3}\\\frac{1}{3} & \frac{1}{3} & \frac{1}{3}
+\end{pNiceMatrix}
+=\begin{pNiceMatrix}
+    \frac{2 \left(- \frac{1}{2}\right)^{n}}{3} + \frac{1}{3} & \frac{1}{3} - \frac{\left(- \frac{1}{2}\right)^{n}}{3} & \frac{1}{3} - \frac{\left(- \frac{1}{2}\right)^{n}}{3}\\\frac{1}{3} - \frac{\left(- \frac{1}{2}\right)^{n}}{3} & \frac{2 \left(- \frac{1}{2}\right)^{n}}{3} + \frac{1}{3} & \frac{1}{3} - \frac{\left(- \frac{1}{2}\right)^{n}}{3}\\\frac{1}{3} - \frac{\left(- \frac{1}{2}\right)^{n}}{3} & \frac{1}{3} - \frac{\left(- \frac{1}{2}\right)^{n}}{3} & \frac{2 \left(- \frac{1}{2}\right)^{n}}{3} + \frac{1}{3}
+\end{pNiceMatrix}
+\]
+Es entonces que para $x\in E$
+\[P^{(n)}(x,x)=\left(\frac{2}{3}\right)\left(-\frac{1}{2}\right)^n+\frac{1}{3}\]
+
+\begin{figure}[!hbt]
+\centering
+\begin{tikzpicture}[->, >=stealth,shorten >=2pt, line width=0.5pt, node distance=2cm]
+% Nodos
+\node [circle , draw , text opacity=1, text=black] (A)  at  (90:5cm) {$1$};
+\node [circle, fill=gray!10,text opacity=1, text=black] (B)  at (330:5cm) {$2$};
+\node [circle, fill=gray!30 , draw, opacity=0.5 ,dotted, text opacity=1, text=black] (C)  at (210:5cm) {$3$};
+% Ejes
+% ---
+% A
+% ---
+%\path (A) edge [loop above] node [above] {$0.4$} (A);
+
+\path (A) edge [bend left] node [fill=white, anchor=center, pos=0.25] {$\frac{2}{3}$} (B);
+
+\path (A) edge  node [fill=white, anchor=center, pos=0.25] {$\frac{1}{3}$} (C);
+
+
+% ---
+% B
+% ---
+\path (B) edge  node [fill=white, anchor=center, pos = 0.25] {$\frac{1}{3}$} (A);
+
+%\path (B) edge [in=132, out=162, loop] node [above] {$0.5$} (B);
+
+\path (B) edge [bend left] node [fill=white, anchor=center, pos = 0.25] {$\frac{2}{3}$} (C);
+
+% ---
+% C
+% ---
+\path (C) edge [bend left] node [fill=white, anchor=center, pos=0.25] {$\frac{2}{3}$} (A);
+
+\path (C) edge  node [fill=white, anchor=center, pos=0.25] {$\frac{1}{3}$} (B);
+
+%\path (C) edge [in=204, out=234, loop] node [below] {$1$} (C);
+
+\end{tikzpicture} 
+\caption{Diagrama de comunicación del problema 2b} 
+\label{fig:p2b}
+\end{figure}
+    
+\paragraph{b)} Notemos del diagrama de comunicación (\cref{fig:p2b}), que la matriz deja de ser simétrica. La matriz de transición queda
+\[P=\begin{pNiceMatrix}
+    0&\frac{2}{3}&\frac{1}{3}\\
+    \frac{1}{3}&0&\frac{2}{3}\\
+    \frac{2}{3}&\frac{1}{3}&0\\
+\end{pNiceMatrix}\]
+Notemos que
+\[\chi_P(\lambda)=\lambda^3-\frac{2}{3}\lambda-\frac{1}{3}=(\lambda-1)\left(\lambda^2+\lambda+\frac{1}{3}\right)\]
+De donde
+\[\lambda_{2,3}=\frac{-1\pm\sqrt{1-\frac{4}{3}}}{2}=-\frac{1}{2}\pm \frac{i}{2\sqrt{3}}=-\frac{1}{\sqrt{3}}\exp\left(\pm i\frac{\pi}{6}\right)\]
+De aquí recordando que, como los 3 eigenvalores son diferentes, hay 3 eigenvectores asociados y podemos construir una base a partir de ellos, tales que podemos escribir a $P$ y por ende a $P^n$ en términos de los eigenvalores, por la fórmula de Moivre podemos colapsar los escalares de los 2 términos complejos con dos escalares y así
+\[(P^n)_{ij}=a+\left(-\frac{1}{\sqrt{3}}\right)^n\left(b\cos\left(\frac{\pi n}{6}\right)+c\sen\left(\frac{\pi n}{6}\right)\right)\]
+Veamos que en el paso cero $P^0$ es la identidad, $P_{1,1}=0$ y 
+\[P^2=\begin{pNiceMatrix}
+    \frac{4}{9} & \frac{1}{9} & \frac{4}{9}\\\frac{4}{9} & \frac{4}{9} & \frac{1}{9}\\\frac{1}{9} & \frac{4}{9} & \frac{4}{9}
+\end{pNiceMatrix}\]
+Por lo que $(P^2)_{1,1}=\frac{4}{9}$
+Entonces
+\begin{align*}
+    1=(P^0)_{1,1}&=a+b\\
+    0=(P^1)_{1,1}&=a+\left(-\frac{1}{\sqrt{3}}\right)\left(b\cos\left(\frac{\pi}{6}\right)+c\sen\left(\frac{\pi}{6}\right)\right)\quad\\
+    \frac{4}{9}=(P^2)_{1,1}&=a+\left(-\frac{1}{\sqrt{3}}\right)^2\left(b\cos\left(\frac{2\pi }{6}\right)+c\sen\left(\frac{2\pi }{6}\right)\right)
+\end{align*}
+De aquí
+\[\systeme{
+a+b=1,a-\frac{1}{2}b-\frac{1}{2\sqrt{3}}c=0,
+a+\frac{1}{6}b+\frac{\sqrt{3}}{6}c=\frac{4}{9}
+}\]
+Notemos de aquí que sumando la segunda y tercera ecuación y multiplicando; además de escalar por 3 la primera ecuación nos queda el sistema
+\[\systeme{3a+3b=3,18a-3b=4}\]
+Lo que nos dice que $a=\frac{1}{3},b=\frac{2}{3},c=0$. Así, sin pérdida de generalidad podemos decir que
+\[(P^n)_{x,x}=\frac{1}{3}+\frac{2}{3}\left(-\frac{1}{\sqrt{3}}\right)^n\cos\left(\frac{n\pi}{6}\right)\]
 \section{Problema 3}
 \begin{displayquote}
-    Supongamos que la prbabilidad de que llueva hoy es de $0.3$ si ninguno de los últimos dos días fue lluvioso, pero la probabilidad de que llueva hoy es $0.6$ si al menos uno de los últimos dos días fue lluvioso.
+    Supongamos que la probabilidad de que llueva hoy es de $0.3$ si ninguno de los últimos dos días fue lluvioso, pero la probabilidad de que llueva hoy es $0.6$ si al menos uno de los últimos dos días fue lluvioso.
     \par Indicamos con $W_n$ el clima del $n-$ésimo día y denotamos
     \[W_n=\begin{cases}
         R& \text{si en el $n$-ésimo día llovió,}\\
@@ -171,10 +422,60 @@ Pavón Alvarez, Lenin
         Demuestra que $X$ es una cadena de Markov con espacio de estados 
         \[\{(R,R),(R,S),(S,R),(S,S)\}\]
         \item Calcula la matriz de transición de $X$
-        \item Calcula las pribabilidades de transición a dos pasos de $X$
-        \item ¿Cuál es la probabilidad de que sí llueva un miércoles dado que no llovió el domineog ni el lunes?
+        \item Calcula las probabilidades de transición a dos pasos de $X$
+        \item ¿Cuál es la probabilidad de que sí llueva un miércoles dado que no llovió el domingo ni el lunes?
     \end{enumerate}
 \end{displayquote}
+\paragraph{a)} Por construcción, se debería romper desde $n=3$ pues
+\[\p(X_3=R|X_2=S,X_1=S)=0.3\qquad \p(X_3=R|X_2=S,X_1=R)=0.6\]
+Y como no depende únicamente del estado inmediato anterior, no se cumple con la propiedad de Markov.
+\paragraph{b)} Queremos ver que
+\begin{align*}
+\p(X_n=(W_{n-1},W_{n})|X_{n-1}=(W_{n-2},W_{n-1}),\cdots,X_1=(W_{0},W_{1}))\\
+=\p(X_n=(W_{n-1},W_{n})|X_{n-1}=(W_{n-2},W_{n-1}))
+\end{align*}
+Definamos a $\{A_k\}_{k\geqslant 2}$ como una familia de eventos independientes correspondientes a $\p(W_k=w_k|W_{k-1}=w_{k-1},W_{k-2}=w_{k-2})$. Recordemos también que por construcción $W_k$ depende únicamente de los últimos dos días anteriores. Así,
+\begin{align*}
+    &\p(X_n=(W_{n-1},W_{n})|X_{n-1}=(W_{n-2},W_{n-1}),\cdots,X_1=(W_{0},W_{1}))\\
+    =&\frac{\p(X_n=(W_{n-1},W_{n}),X_{n-1}=(W_{n-2},W_{n-1}),\cdots,X_1=(W_{0},W_{1}))}{\p(X_{n-1}=(W_{n-2},W_{n-1}),\cdots,X_1=(W_{0},W_{1}))}\\
+    =&\frac{\p(A_n,\cdots,A_2)}{\p(A_{n-1},\cdots,A_2)}=\p(A_n)\\
+    =&\p(W_n=w_n|W_{n-1}=w_{n-1},W_{n-2}=w_{n-2})\\
+    =&\p(W_n=w_n,W_{n-1}=w_{n-1}|W_{n-1}=w_{n-1},W_{n-2}=w_{n-2})\\
+    =&\p(X_n=(W_{n-1},W_{n})|X_{n-1}=(W_{n-2},W_{n-1}))
+\end{align*}
+Donde la simplificación de la familia de eventos $X_0,...,X_n$ se da por un proceso análogo a las últimas 3 igualdades a la inversa.
+\paragraph{c)} Veamos que 
+{\small\begin{align*}
+    P[(R,R),(R,R)] &= 0.6 & P[(R,R),(R,S)] &=0.4 & 
+    P[(R,R),(S,R)] &= 0.0 & P[(R,R),(S,S)] &=0.0\\
+    P[(R,S),(R,R)] &= 0.0 & P[(R,S),(R,S)] &=0.0 & 
+    P[(R,S),(S,R)] &= 0.6 & P[(R,S),(S,S)] &=0.4\\
+    P[(S,R),(R,R)] &= 0.6 & P[(S,R),(R,S)] &=0.4 & 
+    P[(S,R),(S,R)] &= 0.0 & P[(S,R),(S,S)] &=0.0\\
+    P[(S,S),(R,R)] &= 0.0 & P[(S,S),(R,S)] &=0.0 & 
+    P[(S,S),(S,R)] &= 0.3 & P[(S,S),(S,S)] &=0.7
+\end{align*}}
+Por lo que
+\[
+P = \begin{pNiceMatrix}
+    0.6&0.4&0.0&0.0\\
+    0.0&0.0&0.6&0.4\\
+    0.6&0.4&0.0&0.0\\
+    0.0&0.0&0.3&0.7
+\end{pNiceMatrix}
+\]
+\paragraph{d)} Por el inciso anterior,
+\[P^{(2)}=\begin{pNiceMatrix}
+    0.36 & 0.24 & 0.24 & 0.16\\0.36 & 0.24 & 0.12 & 0.28\\0.36 & 0.24 & 0.24 & 0.16\\0.18 & 0.12 & 0.21 & 0.49
+\end{pNiceMatrix}\]
+\paragraph{e)} Por Chapman-Kolmogorov
+\begin{align*}
+    &\p(W_3=R|W_1=S,W_0=S)=\p(X_3=(R,R)|X_1=(S,S))+ \p(X_3=(S,R)|X_1=(S,S))\\
+    =&\p(X_3=(R,R)|X_2=(S,R))\p(X_2=(S,R)|X_1=(S,S))\\
+    &+\p(X_3=(S,R)|X_2=(S,S))\p(X_2=(S,S)|X_1=(S,S))\\
+    =&(0.6)(0.3)+(0.3)(0.7)\\
+    =&0.39
+\end{align*}
 \section{Problema 4}
 Seis niños (Dick, Helen, Joni, Mark,
 Sam y Tony) juegan a atrapar la pelota y sucede lo siguiente:
